@@ -9,9 +9,9 @@
 
   body {
     cursor: none !important;
-    background-color: theme('colors.base');
-    color: theme('colors.navy');
-    font-family: theme('fontFamily.sans');
+    background-color: theme("colors.base");
+    color: theme("colors.navy");
+    font-family: theme("fontFamily.sans");
     overflow-x: hidden;
   }
 
@@ -21,7 +21,7 @@
 
   ::selection {
     background-color: #d4e0ed22;
-    color: theme('colors.navy');
+    color: theme("colors.navy");
   }
 }
 
@@ -29,7 +29,9 @@
   .section-reveal {
     opacity: 0;
     transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition:
+      opacity 0.8s ease,
+      transform 0.8s ease;
   }
 
   .section-reveal.visible {

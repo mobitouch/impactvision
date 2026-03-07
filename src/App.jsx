@@ -20,7 +20,9 @@ export default function App() {
 
       {!loaded && <Loader onDone={() => setLoaded(true)} />}
 
-      <div className={`transition-opacity duration-700 ease-in-out ${loaded ? 'opacity-100' : 'opacity-0'}`}>
+      <div
+        className={`transition-opacity duration-700 ease-in-out ${loaded ? "opacity-100" : "opacity-0"}`}
+      >
         <Nav />
         <main>
           <Hero loaded={loaded} />
