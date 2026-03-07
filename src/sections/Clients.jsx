@@ -1,0 +1,40 @@
+import { CLIENTS } from "../data";
+
+export default function Clients() {
+    return (
+        <section id="clients" className="bg-white py-[100px] px-0 overflow-hidden">
+            <div className="max-w-[1200px] mx-auto mb-12 px-6 md:px-12">
+                <div className="font-mono text-[11px] text-navy/70 tracking-[0.2em] mb-4">06 — CLIENTS</div>
+                <h2 className="font-serif text-[clamp(36px,5vw,64px)] text-navy leading-[1.05] tracking-[-0.02em]">
+                    Trusted by the <em className="italic">best</em>
+                </h2>
+            </div>
+
+            {/* Marquee row 1 */}
+            <div className="overflow-hidden border-y border-[#e8eef8] py-6 flex w-full">
+                <div className="flex animate-scroll-x w-max items-center">
+                    {[...CLIENTS, ...CLIENTS].map((c, i) => (
+                        <div key={i} className="px-12 font-serif text-[clamp(32px,4vw,48px)] text-navy/25 whitespace-nowrap flex items-center gap-12 transition-colors duration-300 hover:text-navy cursor-default select-none">
+                            <span>{c}</span>
+                            <span className="text-navy/30 text-[16px]">✦</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Client grid cards */}
+            <div className="max-w-[1200px] mx-auto mt-14 px-6 md:px-12">
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-[2px]">
+                    {CLIENTS.map((c, i) => (
+                        <div key={c} className="p-[32px_24px] border border-[#e8eef8] flex flex-col gap-2 transition-colors duration-200 hover:border-navy/20 hover:bg-[#f6f9fc]">
+                            <div className="font-mono text-[10px] text-[#c0cce0] tracking-[0.08em]">
+                                {String(i + 1).padStart(2, "0")}
+                            </div>
+                            <div className="font-serif text-[18px] text-navy leading-[1.3]">{c}</div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}

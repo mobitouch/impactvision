@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    cursor: none !important;
+    background-color: theme('colors.base');
+    color: theme('colors.navy');
+    font-family: theme('fontFamily.sans');
+    overflow-x: hidden;
+  }
+
+  * {
+    cursor: none !important;
+  }
+
+  ::selection {
+    background-color: #d4e0ed22;
+    color: theme('colors.navy');
+  }
+}
+
+@layer utilities {
+  .section-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .section-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
