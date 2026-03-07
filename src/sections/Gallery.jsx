@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { GALLERY_ITEMS } from "../data";
 import { Search } from "lucide-react";
 import { clsx } from "clsx";
+import { motion } from "framer-motion";
 
 function GalleryCanvas({ items }) {
     const [search, setSearch] = useState("");
@@ -209,7 +210,12 @@ export default function Gallery() {
     return (
         <section id="gallery" className="bg-white py-[120px] px-6 md:px-12">
             <div className="max-w-[1200px] mx-auto">
-                <div className="mb-14">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8 }}
+                    className="mb-14">
                     <div className="font-mono text-[11px] text-accent tracking-[0.2em] mb-4">04 — GALLERY</div>
                     <h2 className="font-serif text-[clamp(36px,5vw,64px)] text-navy leading-[1.05] tracking-[-0.02em]">
                         Our <em className="italic">work</em>, up close
@@ -217,7 +223,7 @@ export default function Gallery() {
                     <p className="font-sans text-[#6a7a9a] text-[15px] mt-4 leading-[1.7] max-w-[500px]">
                         Drag to explore our infinite canvas. Search or filter by tag to see previous setups across MENA.
                     </p>
-                </div>
+                </motion.div>
                 <GalleryCanvas items={GALLERY_ITEMS} />
             </div>
         </section>

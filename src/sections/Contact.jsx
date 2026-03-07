@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { motion } from "framer-motion";
 
 export default function Contact() {
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
@@ -23,7 +24,11 @@ export default function Contact() {
 
             <div className="max-w-[1200px] mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-[120px]">
                 {/* Left Col */}
-                <div>
+                <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.8 }}>
                     <div className="font-mono text-[11px] text-accent tracking-[0.2em] mb-4">07 — CONTACT</div>
                     <h2 className="font-serif text-[clamp(40px,6vw,72px)] leading-[1.05] tracking-[-0.02em] mb-8">
                         Ready to make an <em className="italic text-accent">Impact?</em>
@@ -50,10 +55,15 @@ export default function Contact() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Right Col: Form */}
-                <div className="bg-[#ffffff05] border border-accent/20 rounded-[16px] p-8 md:p-12 backdrop-blur-sm">
+                <motion.div
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.8 }}
+                    className="bg-[#ffffff05] border border-accent/20 rounded-[16px] p-8 md:p-12 backdrop-blur-sm">
                     {submitted ? (
                         <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center animate-fade-up">
                             <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mb-6 border border-accent/30 text-accent text-2xl">
@@ -106,7 +116,7 @@ export default function Contact() {
                             </button>
                         </form>
                     )}
-                </div>
+                </motion.div>
             </div>
 
             {/* Footer */}

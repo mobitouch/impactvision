@@ -23,7 +23,7 @@ export default function App() {
       <div className={`transition-opacity duration-700 ease-in-out ${loaded ? 'opacity-100' : 'opacity-0'}`}>
         <Nav />
         <main>
-          <Hero />
+          <Hero loaded={loaded} />
           <Stats />
           <Services />
           <Locations />

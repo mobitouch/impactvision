@@ -1,7 +1,20 @@
 import { MoveRight } from "lucide-react";
 import LightRays from "../components/LightRays";
+import { motion } from "framer-motion";
+const container = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: { staggerChildren: 0.2, delayChildren: 0.8 }
+    }
+};
 
-export default function Hero() {
+const item = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+};
+
+export default function Hero({ loaded }) {
     return (
         <section className="min-h-screen bg-navy flex flex-col items-center justify-center relative overflow-hidden px-6 pt-[120px] pb-20 selection:bg-accent/20">
             {/* Interactive Light Rays Background */}
@@ -32,29 +45,33 @@ export default function Hero() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#23203e_100%)] pointer-events-none opacity-80" />
 
             {/* Content Container (z-indexed above the background) */}
-            <div className="relative z-10 flex flex-col items-center w-full pointer-events-none">
+            <motion.div
+                variants={container}
+                initial="hidden"
+                animate={loaded ? "show" : "hidden"}
+                className="relative z-10 flex flex-col items-center w-full pointer-events-none">
                 {/* Eyebrow */}
-                <div className="font-mono text-[11px] tracking-[0.25em] text-accent mb-7 uppercase flex items-center gap-3">
+                <motion.div variants={item} className="font-mono text-[11px] tracking-[0.25em] text-accent mb-7 uppercase flex items-center gap-3">
                     <span className="w-8 h-[1px] bg-accent/50"></span>
                     Audiovisual Excellence
                     <span className="w-8 h-[1px] bg-accent/50"></span>
-                </div>
+                </motion.div>
 
                 {/* Headline */}
-                <h1 className="font-serif text-5xl md:text-8xl lg:text-[130px] text-white text-center leading-[0.9] tracking-[-0.04em] mb-8">
+                <motion.h1 variants={item} className="font-serif text-5xl md:text-8xl lg:text-[130px] text-white text-center leading-[0.9] tracking-[-0.04em] mb-8">
                     Impact<br />
                     <span className="text-accent italic relative inline-block">
                         Vision
                     </span>
-                </h1>
+                </motion.h1>
 
                 {/* Subtitle */}
-                <p className="font-sans text-lg md:text-[22px] text-white/60 max-w-[600px] text-center leading-[1.6] mb-12">
+                <motion.p variants={item} className="font-sans text-lg md:text-[22px] text-white/60 max-w-[600px] text-center leading-[1.6] mb-12">
                     Crafting unforgettable technical productions and immersive stages across the MENA region.
-                </p>
+                </motion.p>
 
                 {/* CTAs */}
-                <div className="flex flex-col sm:flex-row gap-5 items-center pointer-events-auto">
+                <motion.div variants={item} className="flex flex-col sm:flex-row gap-5 items-center pointer-events-auto">
                     <button onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
                         data-cursor="EXPLORE"
                         className="group flex items-center gap-3 bg-accent text-navy py-4 px-8 rounded-full font-sans text-[15px] font-bold tracking-[0.02em] shadow-[0_10px_30px_rgba(212,224,237,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(212,224,237,0.4)]"
@@ -66,8 +83,8 @@ export default function Hero() {
                         data-cursor="CONTACT"
                         className="bg-transparent text-white border border-white/20 py-4 px-8 rounded-full font-sans text-[15px] font-medium transition-all duration-300 hover:border-accent hover:text-accent hover:bg-white/5"
                     >Get in Touch</button>
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
 
             {/* Scroll indicator */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-accent font-mono text-[10px] tracking-[0.2em] animate-bounce pointer-events-none">
