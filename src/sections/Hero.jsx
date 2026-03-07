@@ -45,8 +45,6 @@ export default function Hero() {
                     Impact<br />
                     <span className="text-accent italic relative inline-block">
                         Vision
-                        <div className="absolute -right-6 -top-2 w-4 h-4 rounded-full bg-accent animate-ping opacity-75"></div>
-                        <div className="absolute -right-6 -top-2 w-4 h-4 rounded-full bg-accent shadow-[0_0_15px_#d4e0ed]"></div>
                     </span>
                 </h1>
 
@@ -72,8 +70,8 @@ export default function Hero() {
             </div>
 
             {/* Scroll indicator */}
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-accent font-mono text-[10px] tracking-[0.2em] animate-fade-up [animation-delay:1000ms] pointer-events-none">
-                <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-accent to-transparent animate-pulse" />
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-accent font-mono text-[10px] tracking-[0.2em] animate-bounce pointer-events-none">
+                <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-accent to-transparent" />
                 SCROLL
             </div>
         </section>

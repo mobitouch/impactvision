@@ -40,7 +40,7 @@ export default function Nav() {
                     <img
                         src={logoUrl}
                         alt="Impact Vision"
-                        className={clsx("h-[35px] md:h-[45px] w-auto object-contain transition-all duration-300", scrolled ? "filter invert brightness-0" : "brightness-0 invert")}
+                        className={clsx("h-[50px] md:h-[65px] w-auto object-contain transition-all duration-300", scrolled ? "filter invert brightness-0" : "brightness-0 invert")}
                     />
                 </div>
 
