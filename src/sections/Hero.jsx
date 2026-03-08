@@ -1,6 +1,6 @@
 import { Suspense, lazy } from "react";
 import { MoveRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 const LightRays = lazy(() => import("../components/LightRays"));
 const container = {
@@ -53,24 +53,24 @@ export default function Hero({ loaded }) {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#23203e_100%)] pointer-events-none opacity-80" />
 
       {/* Content Container (z-indexed above the background) */}
-      <motion.div
+      <m.div
         variants={container}
         initial="hidden"
         animate={loaded ? "show" : "hidden"}
         className="relative z-10 flex flex-col items-center w-full pointer-events-none"
       >
         {/* Eyebrow */}
-        <motion.div
+        <m.div
           variants={item}
           className="font-mono text-[11px] tracking-[0.25em] text-accent mb-7 uppercase flex items-center gap-3"
         >
           <span className="w-8 h-[1px] bg-accent/50"></span>
           Audiovisual Excellence
           <span className="w-8 h-[1px] bg-accent/50"></span>
-        </motion.div>
+        </m.div>
 
         {/* Headline */}
-        <motion.h1
+        <m.h1
           variants={item}
           className="font-serif text-[4.5rem] leading-[0.85] sm:text-7xl md:text-8xl lg:text-[130px] text-white text-center sm:leading-[0.9] tracking-[-0.04em] mb-6 sm:mb-8"
         >
@@ -79,19 +79,19 @@ export default function Hero({ loaded }) {
           <span className="text-accent italic relative inline-block">
             Vision
           </span>
-        </motion.h1>
+        </m.h1>
 
         {/* Subtitle */}
-        <motion.p
+        <m.p
           variants={item}
           className="font-sans text-[15px] sm:text-lg md:text-[22px] text-white/80 max-w-[600px] text-center leading-[1.6] mb-10 sm:mb-12 px-4 sm:px-0"
         >
           Crafting unforgettable technical productions and immersive stages
           across the MENA region.
-        </motion.p>
+        </m.p>
 
         {/* CTAs */}
-        <motion.div
+        <m.div
           variants={item}
           className="flex flex-col sm:flex-row gap-4 sm:gap-5 items-center pointer-events-auto w-full sm:w-auto px-6 sm:px-0"
         >
@@ -124,8 +124,8 @@ export default function Hero({ loaded }) {
           >
             Get in Touch
           </button>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
 
       {/* Scroll indicator */}
       <div className="absolute bottom-6 sm:bottom-1 flex flex-col items-center gap-2 sm:gap-3 text-accent font-mono animate-bounce pointer-events-none z-20">

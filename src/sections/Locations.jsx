@@ -1,5 +1,5 @@
 import { LOCATIONS } from "../data";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export default function Locations() {
   return (
@@ -16,7 +16,7 @@ export default function Locations() {
       />
 
       <div className="max-w-[1200px] mx-auto relative z-10">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -29,11 +29,11 @@ export default function Locations() {
           <h2 className="font-serif text-[clamp(36px,5vw,64px)] text-white leading-[1.05] tracking-[-0.02em]">
             Where we <em className="text-accent not-italic">operate</em>
           </h2>
-        </motion.div>
+        </m.div>
 
         <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4">
           {LOCATIONS.map((loc, i) => (
-            <motion.div
+            <m.div
               key={loc.city}
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -56,7 +56,7 @@ export default function Locations() {
                   {p}
                 </div>
               ))}
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
@@ -72,7 +72,7 @@ export default function Locations() {
               text: "To be the premier leading audiovisual partner in the MENA region and beyond.",
             },
           ].map((mv, i) => (
-            <motion.div
+            <m.div
               key={mv.label}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -86,7 +86,7 @@ export default function Locations() {
               <div className="font-serif text-[20px] text-white leading-[1.5]">
                 {mv.text}
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

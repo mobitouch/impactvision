@@ -1,11 +1,11 @@
 import { SERVICES } from "../data";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export default function Services() {
   return (
     <section id="services" className="bg-white py-[120px] px-6 md:px-12">
       <div className="max-w-[1200px] mx-auto">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -18,10 +18,10 @@ export default function Services() {
           <h2 className="font-serif text-[clamp(36px,5vw,64px)] text-navy leading-[1.05] tracking-[-0.02em] max-w-[560px]">
             From concept to <em className="italic">execution</em>
           </h2>
-        </motion.div>
+        </m.div>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-[24px]">
           {SERVICES.map((s, i) => (
-            <motion.div
+            <m.div
               key={s.id}
               data-cursor="READ MORE"
               initial={{ opacity: 0, y: 40 }}
@@ -81,7 +81,7 @@ export default function Services() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

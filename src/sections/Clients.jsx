@@ -1,10 +1,10 @@
 import { CLIENTS } from "../data";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export default function Clients() {
   return (
     <section id="clients" className="bg-white py-[100px] px-0 overflow-hidden">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
@@ -17,7 +17,7 @@ export default function Clients() {
         <h2 className="font-serif text-[clamp(36px,5vw,64px)] text-navy leading-[1.05] tracking-[-0.02em]">
           Trusted by the <em className="italic">best</em>
         </h2>
-      </motion.div>
+      </m.div>
 
       {/* Marquee row 1 */}
       <div className="overflow-hidden border-y border-[#e8eef8] py-6 flex w-full">
@@ -38,7 +38,7 @@ export default function Clients() {
       <div className="max-w-[1200px] mx-auto mt-14 px-6 md:px-12">
         <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-[2px]">
           {CLIENTS.map((c, i) => (
-            <motion.div
+            <m.div
               key={c}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -52,7 +52,7 @@ export default function Clients() {
               <div className="font-serif text-[18px] text-navy leading-[1.3]">
                 {c}
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

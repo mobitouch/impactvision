@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { GALLERY_ITEMS } from "../data";
 import { Search } from "lucide-react";
 import { clsx } from "clsx";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 function GalleryCanvas({ items }) {
   const [search, setSearch] = useState("");
@@ -254,7 +254,7 @@ export default function Gallery() {
   return (
     <section id="gallery" className="bg-white py-[120px] px-6 md:px-12">
       <div className="max-w-[1200px] mx-auto">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -271,7 +271,7 @@ export default function Gallery() {
             Drag to explore our infinite canvas. Search or filter by tag to see
             previous setups across MENA.
           </p>
-        </motion.div>
+        </m.div>
         <GalleryCanvas items={GALLERY_ITEMS} />
       </div>
     </section>

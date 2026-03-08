@@ -1,11 +1,11 @@
 import { SAFETY } from "../data";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export default function Safety() {
   return (
     <section className="bg-[#f7f9ff] py-[100px] px-6 md:px-12">
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-[80px] items-center">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -24,10 +24,10 @@ export default function Safety() {
             our planning and execution. We prioritize the wellbeing of your team
             and audience through comprehensive safety protocols.
           </p>
-        </motion.div>
+        </m.div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {SAFETY.map((s, i) => (
-            <motion.div
+            <m.div
               key={s}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -39,7 +39,7 @@ export default function Safety() {
               <div className="font-sans text-[13px] text-[#2a3a5a] font-medium">
                 {s}
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

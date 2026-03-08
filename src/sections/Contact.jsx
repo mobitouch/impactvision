@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export default function Contact() {
   const {
@@ -36,7 +36,7 @@ export default function Contact() {
 
       <div className="max-w-[1200px] mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-[120px]">
         {/* Left Col */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-50px" }}
@@ -91,10 +91,10 @@ export default function Contact() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Right Col: Form */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-50px" }}
@@ -201,7 +201,7 @@ export default function Contact() {
               </button>
             </form>
           )}
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Footer */}

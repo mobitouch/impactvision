@@ -1,4 +1,5 @@
 import { useState, lazy, Suspense } from "react";
+import { LazyMotion, domAnimation } from "framer-motion";
 import CustomCursor from "./components/CustomCursor";
 import Loader from "./components/Loader";
 import Nav from "./components/Nav";
@@ -17,7 +18,7 @@ export default function App() {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <>
+    <LazyMotion features={domAnimation}>
       <CustomCursor />
 
       {!loaded && <Loader onDone={() => setLoaded(true)} />}
@@ -41,6 +42,6 @@ export default function App() {
           )}
         </main>
       </div>
-    </>
+    </LazyMotion>
   );
 }

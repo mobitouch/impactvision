@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { STATS } from "../data";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 function AnimCounter({ value, suffix }) {
   const [display, setDisplay] = useState(0);
@@ -44,7 +44,7 @@ export default function Stats() {
     <section className="bg-white border-b border-[#e8eef8] py-[60px] px-12 flex justify-center">
       <div className="flex gap-[80px] flex-wrap justify-center items-center">
         {STATS.map((s, i) => (
-          <motion.div
+          <m.div
             key={s.label}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -58,7 +58,7 @@ export default function Stats() {
             <div className="font-sans text-[13px] text-[#6a7a9a] mt-2 tracking-[0.05em] uppercase font-medium">
               {s.label}
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </section>
