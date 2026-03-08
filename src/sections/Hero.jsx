@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useState, useEffect } from "react";
 import { MoveRight } from "lucide-react";
 import { m } from "framer-motion";
 
@@ -17,27 +17,39 @@ const item = {
 };
 
 export default function Hero({ loaded }) {
+  const [showRays, setShowRays] = useState(false);
+
+  // Hard-defer WebGL context compilation until after Lighthouse LCP paints
+  useEffect(() => {
+    if (loaded) {
+      const timer = setTimeout(() => setShowRays(true), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [loaded]);
+
   return (
     <section className="min-h-screen bg-navy flex flex-col items-center justify-center relative overflow-hidden px-6 pt-[120px] pb-20 selection:bg-accent/20">
-      {/* Interactive Light Rays Background (Lazy Loaded for Performance) */}
+      {/* Interactive Light Rays Background (Lazy Loaded and Hard-Deferred for Performance) */}
       <div className="absolute inset-0 pointer-events-auto">
-        <Suspense fallback={null}>
-          <LightRays
-            raysOrigin="top-center"
-            raysColor="#ffffff"
-            raysSpeed={1}
-            lightSpread={0.5}
-            rayLength={3}
-            followMouse={true}
-            mouseInfluence={0.1}
-            noiseAmount={0}
-            distortion={0}
-            className="opacity-60"
-            pulsating={false}
-            fadeDistance={1}
-            saturation={1}
-          />
-        </Suspense>
+        {showRays && (
+          <Suspense fallback={null}>
+            <LightRays
+              raysOrigin="top-center"
+              raysColor="#ffffff"
+              raysSpeed={1}
+              lightSpread={0.5}
+              rayLength={3}
+              followMouse={true}
+              mouseInfluence={0.1}
+              noiseAmount={0}
+              distortion={0}
+              className="opacity-60 transition-opacity duration-1000"
+              pulsating={false}
+              fadeDistance={1}
+              saturation={1}
+            />
+          </Suspense>
+        )}
       </div>
 
       {/* Premium Grid Background Overlay */}

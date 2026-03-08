@@ -25,10 +25,10 @@ export default function Clients() {
           {[...CLIENTS, ...CLIENTS].map((c, i) => (
             <div
               key={i}
-              className="px-12 font-serif text-[clamp(32px,4vw,48px)] text-navy/25 whitespace-nowrap flex items-center gap-12 transition-colors duration-300 hover:text-navy cursor-default select-none"
+              className="px-12 font-serif text-[clamp(32px,4vw,48px)] text-navy/60 whitespace-nowrap flex items-center gap-12 transition-colors duration-300 hover:text-navy cursor-default select-none"
             >
               <span>{c}</span>
-              <span className="text-navy/30 text-[16px]">✦</span>
+              <span className="text-navy/60 text-[16px]">✦</span>
             </div>
           ))}
         </div>
