@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import CustomCursor from "./components/CustomCursor";
 import Loader from "./components/Loader";
 import Nav from "./components/Nav";
 import Hero from "./sections/Hero";
-import Stats from "./sections/Stats";
-import Services from "./sections/Services";
-import Locations from "./sections/Locations";
-import Gallery from "./sections/Gallery";
-import Safety from "./sections/Safety";
-import Clients from "./sections/Clients";
-import Contact from "./sections/Contact";
+
+// Lazy Loaded Sections for Performance (Code Splitting)
+const Stats = lazy(() => import("./sections/Stats"));
+const Services = lazy(() => import("./sections/Services"));
+const Locations = lazy(() => import("./sections/Locations"));
+const Gallery = lazy(() => import("./sections/Gallery"));
+const Safety = lazy(() => import("./sections/Safety"));
+const Clients = lazy(() => import("./sections/Clients"));
+const Contact = lazy(() => import("./sections/Contact"));
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
@@ -26,13 +28,17 @@ export default function App() {
         <Nav />
         <main>
           <Hero loaded={loaded} />
-          <Stats />
-          <Services />
-          <Locations />
-          <Gallery />
-          <Safety />
-          <Clients />
-          <Contact />
+          {loaded && (
+            <Suspense fallback={<div className="min-h-screen bg-navy flex items-center justify-center"><div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" /></div>}>
+              <Stats />
+              <Services />
+              <Locations />
+              <Gallery />
+              <Safety />
+              <Clients />
+              <Contact />
+            </Suspense>
+          )}
         </main>
       </div>
     </>

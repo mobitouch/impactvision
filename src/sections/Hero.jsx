@@ -80,7 +80,7 @@ export default function Hero({ loaded }) {
         {/* Subtitle */}
         <motion.p
           variants={item}
-          className="font-sans text-[15px] sm:text-lg md:text-[22px] text-white/60 max-w-[600px] text-center leading-[1.6] mb-10 sm:mb-12 px-4 sm:px-0"
+          className="font-sans text-[15px] sm:text-lg md:text-[22px] text-white/80 max-w-[600px] text-center leading-[1.6] mb-10 sm:mb-12 px-4 sm:px-0"
         >
           Crafting unforgettable technical productions and immersive stages
           across the MENA region.
@@ -98,11 +98,13 @@ export default function Hero({ loaded }) {
                 ?.scrollIntoView({ behavior: "smooth" })
             }
             data-cursor="EXPLORE"
+            aria-label="Explore our production services"
             className="group flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto bg-accent text-navy py-3 px-6 sm:py-4 sm:px-8 rounded-full font-sans text-sm sm:text-[15px] font-bold tracking-[0.02em] shadow-[0_10px_30px_rgba(212,224,237,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(212,224,237,0.4)]"
           >
             Explore Production
             <MoveRight
               size={16}
+              aria-hidden="true"
               className="sm:w-[18px] sm:h-[18px] transition-transform duration-300 group-hover:translate-x-1"
             />
           </button>
@@ -113,6 +115,7 @@ export default function Hero({ loaded }) {
                 ?.scrollIntoView({ behavior: "smooth" })
             }
             data-cursor="CONTACT"
+            aria-label="Get in touch with Impact Vision"
             className="bg-transparent text-white border border-white/20 w-full sm:w-auto py-3 px-6 sm:py-4 sm:px-8 rounded-full font-sans text-sm sm:text-[15px] font-medium transition-all duration-300 hover:border-accent hover:text-accent hover:bg-white/5"
           >
             Get in Touch

@@ -41,7 +41,11 @@ export default function Nav() {
         >
           <img
             src={logoUrl}
-            alt="Impact Vision"
+            alt="Impact Vision Logo"
+            width={180}
+            height={65}
+            fetchpriority="high"
+            decoding="sync"
             className={clsx(
               "h-[50px] md:h-[65px] w-auto object-contain transition-all duration-300",
               scrolled ? "filter invert brightness-0" : "brightness-0 invert",
@@ -56,7 +60,7 @@ export default function Nav() {
               key={id}
               onClick={() => scroll(id)}
               data-cursor="EXPLORE"
-              className="font-sans text-[14px] font-medium tracking-wide transition-colors duration-200 text-white/70 hover:text-white"
+              className="font-sans text-[14px] font-medium tracking-wide transition-colors duration-200 text-white/90 hover:text-white"
             >
               {label}
             </button>
@@ -72,10 +76,11 @@ export default function Nav() {
 
         {/* Mobile Toggle */}
         <button
+          aria-label={mobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
           className="md:hidden p-2 rounded-md text-white transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {mobileMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
         </button>
       </nav>
 
