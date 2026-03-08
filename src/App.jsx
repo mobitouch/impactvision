@@ -3,6 +3,7 @@ import { LazyMotion, domAnimation } from "framer-motion";
 import CustomCursor from "./components/CustomCursor";
 import Loader from "./components/Loader";
 import Nav from "./components/Nav";
+import FloatingActions from "./components/FloatingActions";
 import Hero from "./sections/Hero";
 
 // Lazy Loaded Sections for Performance (Code Splitting)
@@ -42,6 +43,7 @@ export default function App() {
           )}
         </main>
       </div>
+      <FloatingActions />
     </LazyMotion>
   );
 }

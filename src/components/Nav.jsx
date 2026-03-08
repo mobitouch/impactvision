@@ -34,53 +34,60 @@ export default function Nav() {
             : "py-6 px-6 md:px-12 bg-transparent border-b border-transparent backdrop-blur-none",
         )}
       >
-        <div
-          className="cursor-pointer flex items-center"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        >
-          <img
-            src="/logo.webp"
-            alt="Impact Vision Logo"
-            width={180}
-            height={65}
-            fetchpriority="high"
-            decoding="sync"
-            className={clsx(
-              "h-[50px] md:h-[65px] w-auto object-contain transition-all duration-300",
-              scrolled ? "filter invert brightness-0" : "brightness-0 invert",
-            )}
-          />
+        {/* Left: Logo */}
+        <div className="flex-1 flex justify-start">
+          <div
+            className="cursor-pointer flex items-center"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            <img
+              src="/logo.webp"
+              alt="Impact Vision Logo"
+              width={180}
+              height={65}
+              fetchpriority="high"
+              decoding="sync"
+              className={clsx(
+                "h-[50px] md:h-[65px] w-auto object-contain transition-all duration-300",
+                scrolled ? "filter invert brightness-0" : "brightness-0 invert",
+              )}
+            />
+          </div>
         </div>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex gap-9 items-center">
+        {/* Center: Desktop Nav Links */}
+        <div className="hidden md:flex flex-[2] justify-center gap-9 items-center">
           {navLinks.map(([id, label]) => (
             <button
               key={id}
               onClick={() => scroll(id)}
               data-cursor="EXPLORE"
-              className="font-sans text-[14px] font-medium tracking-wide transition-colors duration-200 text-white/90 hover:text-white"
+              className="font-sans text-[14px] font-medium tracking-wide transition-colors duration-200 text-white/90 hover:text-white whitespace-nowrap"
             >
               {label}
             </button>
           ))}
+        </div>
+
+        {/* Right: Actions */}
+        <div className="flex-1 flex justify-end items-center gap-4">
           <button
             onClick={() => scroll("contact")}
             data-cursor="GET IN TOUCH"
-            className="bg-accent text-navy px-[22px] py-[10px] rounded-md font-sans text-[13px] font-semibold tracking-wide transition-all duration-200 hover:-translate-y-[2px] hover:shadow-[0_8px_24px_rgba(212,224,237,0.27)]"
+            className="hidden md:block bg-accent text-navy px-[22px] py-[10px] rounded-md font-sans text-[13px] font-semibold tracking-wide transition-all duration-200 hover:-translate-y-[2px] hover:shadow-[0_8px_24px_rgba(212,224,237,0.27)] whitespace-nowrap"
           >
             Get in Touch
           </button>
-        </div>
 
-        {/* Mobile Toggle */}
-        <button
-          aria-label={mobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
-          className="md:hidden p-2 rounded-md text-white transition-colors"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
-        </button>
+          {/* Mobile Toggle */}
+          <button
+            aria-label={mobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
+            className="md:hidden p-2 rounded-md text-white transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
