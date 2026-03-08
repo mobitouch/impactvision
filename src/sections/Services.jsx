@@ -19,7 +19,7 @@ export default function Services() {
             From concept to <em className="italic">execution</em>
           </h2>
         </m.div>
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-[24px]">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-[16px] md:gap-[20px]">
           {SERVICES.map((s, i) => (
             <m.div
               key={s.id}
@@ -28,33 +28,14 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="group md:h-[320px] [perspective:1000px] bg-transparent"
+              className="group h-[170px] md:h-[240px] [perspective:1000px] bg-transparent"
             >
-              <div className="relative w-full h-full transition-all duration-700 md:[transform-style:preserve-3d] md:group-hover:[transform:rotateY(180deg)] shadow-[0_4px_20px_rgba(35,32,62,0.05)] hover:shadow-xl rounded-[16px]">
-                {/* Responsive Layout for Mobile */}
-                <div className="md:hidden w-full h-auto bg-white p-6 sm:p-8 border border-[#e8eef8] rounded-[16px] flex flex-col justify-between">
+              <div className="relative w-full h-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] shadow-[0_4px_20px_rgba(35,32,62,0.05)] hover:shadow-xl rounded-[16px]">
+                {/* Front Face */}
+                <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] bg-white p-4 md:p-6 border border-[#e8eef8] rounded-[16px] flex flex-col justify-between text-left">
                   <div>
-                    <div className="text-[32px] mb-4 text-navy">{s.icon}</div>
-                    <div className="font-serif text-[24px] text-navy leading-[1.2] mb-3">
-                      {s.title}
-                    </div>
-                    <div className="font-sans text-[14px] text-navy/70 leading-[1.6] mb-6">
-                      {s.desc}
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-end">
-                    <div className="w-8 h-[2px] bg-accent/50"></div>
-                    <div className="font-mono text-[11px] text-navy/30 tracking-[0.06em]">
-                      {String(i + 1).padStart(2, "0")}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Front Face (Desktop only) */}
-                <div className="hidden md:flex absolute inset-0 w-full h-full [backface-visibility:hidden] bg-white p-[40px_32px] border border-[#e8eef8] rounded-[16px] flex-col justify-between">
-                  <div>
-                    <div className="text-[32px] mb-6 text-navy">{s.icon}</div>
-                    <div className="font-serif text-[24px] text-navy leading-[1.2]">
+                    <div className="text-[24px] md:text-[28px] mb-1.5 md:mb-3 text-navy">{s.icon}</div>
+                    <div className="font-serif text-[18px] md:text-[22px] text-navy leading-[1.2]">
                       {s.title}
                     </div>
                   </div>
@@ -63,18 +44,18 @@ export default function Services() {
                   </div>
                 </div>
 
-                {/* Back Face (Desktop only) */}
-                <div className="hidden md:flex absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-navy p-[40px_32px] border border-navy rounded-[16px] flex-col justify-between text-white">
+                {/* Back Face */}
+                <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-navy p-4 md:p-6 border border-navy rounded-[16px] flex flex-col justify-between text-white text-left">
                   <div>
-                    <div className="font-serif text-[20px] text-white mb-4">
+                    <div className="font-serif text-[16px] md:text-[18px] text-white mb-1.5 md:mb-2">
                       {s.title}
                     </div>
-                    <div className="font-sans text-[14px] text-white/80 leading-[1.7]">
+                    <div className="font-sans text-[12px] md:text-[13px] text-white/80 leading-[1.4] md:leading-[1.6]">
                       {s.desc}
                     </div>
                   </div>
                   <div className="flex justify-between items-end">
-                    <div className="w-8 h-[2px] bg-accent"></div>
+                    <div className="w-6 md:w-8 h-[2px] bg-accent"></div>
                     <div className="font-mono text-[11px] text-accent tracking-[0.06em]">
                       {String(i + 1).padStart(2, "0")}
                     </div>
