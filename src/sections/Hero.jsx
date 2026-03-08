@@ -1,6 +1,8 @@
+import { Suspense, lazy } from "react";
 import { MoveRight } from "lucide-react";
-import LightRays from "../components/LightRays";
 import { motion } from "framer-motion";
+
+const LightRays = lazy(() => import("../components/LightRays"));
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -17,23 +19,25 @@ const item = {
 export default function Hero({ loaded }) {
   return (
     <section className="min-h-screen bg-navy flex flex-col items-center justify-center relative overflow-hidden px-6 pt-[120px] pb-20 selection:bg-accent/20">
-      {/* Interactive Light Rays Background */}
+      {/* Interactive Light Rays Background (Lazy Loaded for Performance) */}
       <div className="absolute inset-0 pointer-events-auto">
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#ffffff"
-          raysSpeed={1}
-          lightSpread={0.5}
-          rayLength={3}
-          followMouse={true}
-          mouseInfluence={0.1}
-          noiseAmount={0}
-          distortion={0}
-          className="opacity-60"
-          pulsating={false}
-          fadeDistance={1}
-          saturation={1}
-        />
+        <Suspense fallback={null}>
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#ffffff"
+            raysSpeed={1}
+            lightSpread={0.5}
+            rayLength={3}
+            followMouse={true}
+            mouseInfluence={0.1}
+            noiseAmount={0}
+            distortion={0}
+            className="opacity-60"
+            pulsating={false}
+            fadeDistance={1}
+            saturation={1}
+          />
+        </Suspense>
       </div>
 
       {/* Premium Grid Background Overlay */}

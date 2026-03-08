@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { clsx } from "clsx";
 import { Menu, X } from "lucide-react";
-import logoUrl from "../assets/Impact Vision Logo.webp";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -40,7 +39,7 @@ export default function Nav() {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
           <img
-            src={logoUrl}
+            src="/logo.webp"
             alt="Impact Vision Logo"
             width={180}
             height={65}
