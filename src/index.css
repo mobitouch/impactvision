@@ -8,15 +8,18 @@
   }
 
   body {
-    cursor: none !important;
     background-color: theme("colors.base");
     color: theme("colors.navy");
     font-family: theme("fontFamily.sans");
     overflow-x: hidden;
   }
 
-  * {
-    cursor: none !important;
+  @media (pointer: fine) {
+
+    body,
+    * {
+      cursor: none !important;
+    }
   }
 
   ::selection {

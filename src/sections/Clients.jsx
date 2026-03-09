@@ -3,13 +3,13 @@ import { m } from "framer-motion";
 
 export default function Clients() {
   return (
-    <section id="clients" className="bg-white py-[100px] px-0 overflow-hidden">
+    <section id="clients" className="bg-white py-[120px] px-6 md:px-12 overflow-hidden">
       <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
-        className="max-w-[1200px] mx-auto mb-12 px-6 md:px-12"
+        className="max-w-[1200px] mx-auto mb-32"
       >
         <div className="font-mono text-[11px] text-navy/70 tracking-[0.2em] mb-4">
           06 — CLIENTS
@@ -19,23 +19,8 @@ export default function Clients() {
         </h2>
       </m.div>
 
-      {/* Marquee row 1 */}
-      <div className="overflow-hidden border-y border-[#e8eef8] py-6 flex w-full">
-        <div className="flex animate-scroll-x w-max items-center">
-          {[...CLIENTS, ...CLIENTS].map((c, i) => (
-            <div
-              key={i}
-              className="px-12 font-serif text-[clamp(32px,4vw,48px)] text-navy/60 whitespace-nowrap flex items-center gap-12 transition-colors duration-300 hover:text-navy cursor-default select-none"
-            >
-              <span>{c}</span>
-              <span className="text-navy/60 text-[16px]">✦</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Client grid cards */}
-      <div className="max-w-[1200px] mx-auto mt-14 px-6 md:px-12">
+      <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-[2px]">
           {CLIENTS.map((c, i) => (
             <m.div

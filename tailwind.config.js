@@ -20,7 +20,6 @@ export default {
       animation: {
         'fade-up': 'fadeUp 0.8s ease both',
         'pulse-slow': 'pulse 2s ease infinite',
-        'scroll-x': 'scrollX 20s linear infinite',
         'float': 'float 6s ease-in-out infinite',
         'rotate-slow': 'rotate 8s linear infinite',
         'rotate-slower-reverse': 'rotate 12s linear infinite reverse',
@@ -30,10 +29,6 @@ export default {
         fadeUp: {
           '0%': { opacity: '0', transform: 'translateY(32px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        scrollX: {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-50%)' },
         },
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
