@@ -10,14 +10,31 @@ export default function Contact() {
   } = useForm();
   const [submitted, setSubmitted] = useState(false);
 
+  const [submitError, setSubmitError] = useState("");
+
   const onSubmit = async (data) => {
+    setSubmitError("");
     try {
-      // Simulate EmailJS Send for demo. The client will plug in their keys.
-      // await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', data, 'YOUR_PUBLIC_KEY');
-      await new Promise((r) => setTimeout(r, 1500));
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          throw new Error("Too many requests. Please try again later.");
+        }
+        const errData = await response.json();
+        throw new Error(errData.error || "Failed to send message.");
+      }
+
       setSubmitted(true);
     } catch (error) {
-      console.error("Failed to send email");
+      console.error("Failed to send email:", error);
+      setSubmitError(error.message || "An unexpected error occurred. Please try again.");
     }
   };
 
@@ -117,6 +134,20 @@ export default function Contact() {
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col gap-6"
             >
+              {/* Honeypot field (hidden from real users, visible to simple bots) */}
+              <div className="absolute opacity-0 -z-50 pointer-events-none h-0 w-0 overflow-hidden" aria-hidden="true" tabIndex="-1">
+                <label>Do not fill this out if you are human: 
+                  <input {...register("bot_field")} type="text" tabIndex="-1" autoComplete="off" />
+                </label>
+              </div>
+
+              {submitError && (
+                <div className="bg-red-500/10 border border-red-500/30 text-red-200 px-4 py-3 rounded-md font-sans text-[14px] flex items-start gap-3">
+                  <span className="text-red-400 mt-0.5">!</span>
+                  <span>{submitError}</span>
+                </div>
+              )}
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="font-mono text-[10px] text-accent tracking-[0.1em] uppercase">
