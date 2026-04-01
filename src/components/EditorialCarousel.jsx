@@ -1,30 +1,29 @@
 import { useRef, useEffect, useState, useCallback, useLayoutEffect } from 'react';
 
-/* ── Default placeholder images (portrait-oriented) ────────────────── */
 const DEFAULT_IMAGES = [
     {
-        src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=600&fit=crop',
-        alt: 'Portrait 1',
+        src: '/gallery/1000060620_cd46f130f6f4181e3ca191796759d9d7-1_1_2024, 1_59_46 PM_20250827_134740_0000.webp',
+        alt: 'Stage Setup',
     },
     {
-        src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop',
-        alt: 'Portrait 2',
+        src: '/gallery/1000060670_eb8900016d3bfc5f3dd6459a47659434-1_1_2024, 1_51_02 PM_20250827_135707_0000.webp',
+        alt: 'Lighting Design',
     },
     {
-        src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=600&fit=crop',
-        alt: 'Portrait 3',
+        src: '/gallery/1000060870_ee61a640d1fdf37c22887fbeb4e8e2c9-1_3_2024, 1_15_47 PM_20250827_135304_0000.webp',
+        alt: 'Rigging Trusses',
     },
     {
-        src: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=600&fit=crop',
-        alt: 'Portrait 4',
+        src: '/gallery/1000061251_04b5b4be81e937a5225bc2e8b6e69d18-1_6_2024, 2_13_45 PM_20250827_134730_0000.webp',
+        alt: 'Concert Sound',
     },
     {
-        src: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=600&fit=crop',
-        alt: 'Portrait 5',
+        src: '/gallery/1000062334_9587f5da3412ebb9132551f11d43a420-1_14_2024, 4_53_25 PM_20250827_135849_0000.webp',
+        alt: 'LED Systems',
     },
     {
-        src: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=600&fit=crop',
-        alt: 'Portrait 6',
+        src: '/gallery/1000066044_bcc5e0b6cf0055c901ceffbb821393ce-2_17_2024, 2_26_36 PM_20250827_135720_0000.webp',
+        alt: 'Stage Production',
     },
 ];
 
@@ -125,10 +124,10 @@ const EditorialCarousel = ({ images }) => {
                     ...(phase === 'animating'
                         ? {
                             left: -MAIN_W - 30,          // slide OFF-SCREEN to the LEFT
-                            width: SIDE_W,
-                            height: SIDE_H,
+                            width: MAIN_W,
+                            height: MAIN_H,
                             opacity: 0,
-                            transform: 'scale(0.9)',
+                            transform: 'scale(1)',
                         }
                         : {
                             left: 0,
@@ -156,7 +155,7 @@ const EditorialCarousel = ({ images }) => {
                                 left: sideX(0),
                                 width: SIDE_W,
                                 height: SIDE_H,
-                                opacity: 0.8,
+                                opacity: 1,
                                 transform: 'scale(1)',
                             }
                             : {

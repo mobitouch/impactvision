@@ -32,7 +32,7 @@ export default function FloatingActions() {
 
       {/* WhatsApp Floating Button */}
       <a
-        href="https://wa.me/966533110614"
+        href="https://wa.me/+9613532505"
         target="_blank"
         rel="noopener noreferrer"
         data-cursor="CHAT"

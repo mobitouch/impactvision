@@ -37,7 +37,7 @@ export default function Loader({ onDone }) {
       )}
     >
       <div className="relative mb-12">
-        <div className="text-[clamp(32px,6vw,64px)] font-serif text-white tracking-tight leading-none">
+        <div className="text-[clamp(32px,6vw,64px)] font-['akkordeon-font'] text-white tracking-tight leading-none">
           Impact Vision
         </div>
         <div

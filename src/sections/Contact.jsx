@@ -88,7 +88,7 @@ export default function Contact() {
                 Main Office
               </span>
               <span className="text-[#88a0c8]">
-                Riyadh, Kingdom of Saudi Arabia
+                Lebanon
               </span>
             </div>
             <div className="flex flex-col gap-1.5">
@@ -136,7 +136,7 @@ export default function Contact() {
             >
               {/* Honeypot field (hidden from real users, visible to simple bots) */}
               <div className="absolute opacity-0 -z-50 pointer-events-none h-0 w-0 overflow-hidden" aria-hidden="true" tabIndex="-1">
-                <label>Do not fill this out if you are human: 
+                <label>Do not fill this out if you are human:
                   <input {...register("bot_field")} type="text" tabIndex="-1" autoComplete="off" />
                 </label>
               </div>

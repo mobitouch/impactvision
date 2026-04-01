@@ -199,24 +199,33 @@ export default function GalleryCanvas({ items, fullPage = false }) {
                     {layout.map((item) => (
                         <div
                             key={item.id}
-                            className="absolute rounded-[12px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_16px_40px_rgba(212,224,237,0.15)] group"
+                            className="absolute rounded-[12px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_16px_40px_rgba(212,224,237,0.15)] group bg-navy"
                             style={{
                                 left: item.x,
                                 top: item.y,
                                 width: item.width,
                                 height: item.height,
-                                background: item.color,
+                                background: item.image ? 'transparent' : item.color,
                             }}
                         >
-                            <div
-                                className="absolute inset-0"
-                                style={{
-                                    background: `linear-gradient(135deg, ${item.color} 0%, rgba(212,224,237,0.1) 100%)`,
-                                }}
-                            />
+                            {item.image ? (
+                                <img
+                                    src={item.image}
+                                    alt={item.label}
+                                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                                    loading="lazy"
+                                />
+                            ) : (
+                                <div
+                                    className="absolute inset-0"
+                                    style={{
+                                        background: `linear-gradient(135deg, ${item.color} 0%, rgba(212,224,237,0.1) 100%)`,
+                                    }}
+                                />
+                            )}
 
                             {/* Hover Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
                             <div className="absolute bottom-4 left-4 right-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                                 <div className="text-white text-[15px] font-serif mb-2 leading-tight">
