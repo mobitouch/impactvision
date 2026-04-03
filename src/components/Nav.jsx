@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -12,9 +13,24 @@ export default function Nav() {
   const isHome = location.pathname === "/";
 
   useEffect(() => {
-    const s = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", s);
-    return () => window.removeEventListener("scroll", s);
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      setScrolled(currentScrollY > 60);
+
+      if (currentScrollY > lastScrollY && currentScrollY > 60) {
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        setIsVisible(true);
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToSection = useCallback(
@@ -65,6 +81,7 @@ export default function Nav() {
           scrolled
             ? "py-3 px-6 md:px-12 bg-navy/60 backdrop-blur-md border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
             : "py-6 px-6 md:px-12 bg-transparent border-b border-transparent backdrop-blur-none",
+          !isVisible && !mobileMenuOpen ? "-translate-y-full md:translate-y-0" : "translate-y-0"
         )}
       >
         {/* Left: Logo */}

@@ -14,27 +14,43 @@ export default function Contact() {
 
   const onSubmit = async (data) => {
     setSubmitError("");
+
+    // Honeypot check
+    if (data.bot_field) {
+        setSubmitError("Bot detected. Submission rejected.");
+        return;
+    }
+
     try {
-      const response = await fetch('/api/contact', {
+      // Basic sanitization to prevent html injection in emails
+      const sanitize = (str) => str ? str.trim().replace(/[<>&]/g, "") : "";
+      
+      const payload = {
+          "First Name": sanitize(data.firstName),
+          "Last Name": sanitize(data.lastName),
+          "Email Address": sanitize(data.email),
+          "Message": sanitize(data.message),
+          _subject: `New Website Inquiry from ${sanitize(data.firstName)} ${sanitize(data.lastName)}`,
+          _template: "table"
+      };
+
+      const response = await fetch('https://formsubmit.co/ajax/sales@impactvision.co', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
-        if (response.status === 429) {
-          throw new Error("Too many requests. Please try again later.");
-        }
-        const errData = await response.json();
-        throw new Error(errData.error || "Failed to send message.");
+        throw new Error("Failed to send message. Please try again.");
       }
 
       setSubmitted(true);
     } catch (error) {
       console.error("Failed to send email:", error);
-      setSubmitError(error.message || "An unexpected error occurred. Please try again.");
+      setSubmitError("An unexpected error occurred. Please try again.");
     }
   };
 
