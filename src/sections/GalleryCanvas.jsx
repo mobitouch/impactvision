@@ -3,7 +3,13 @@ import { Search } from "lucide-react";
 import { clsx } from "clsx";
 
 export default function GalleryCanvas({ items, fullPage = false }) {
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState(() => {
+        if (typeof window !== "undefined") {
+            const params = new URLSearchParams(window.location.search);
+            return params.get("tag") || "";
+        }
+        return "";
+    });
     const canvasRef = useRef(null);
     const offset = useRef({ x: 0, y: 0 });
     const targetOffset = useRef({ x: 0, y: 0 });

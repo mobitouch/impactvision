@@ -43,7 +43,7 @@ export const SERVICES = [
   },
   {
     id: 8,
-    icon: "⚡",
+    icon: "ϟ",
     title: "Power & Distribution",
     desc: "Complete power distribution systems ensuring uninterrupted performances and absolute safety across all production scales.",
   },
@@ -67,21 +67,41 @@ export const LOCATIONS = [
     country: "KSA",
     flag: "🇸🇦",
     phones: ["+966 53 311 0614", "+966 55 435 5278"],
+    email: "riyadh@impact-vision.com",
+    link: "https://maps.google.com/?q=Riyadh",
   },
-  { city: "Dubai", country: "UAE", flag: "🇦🇪", phones: ["+971 54 353 8838"] },
+  {
+    city: "Dubai",
+    country: "UAE",
+    flag: "🇦🇪",
+    phones: ["+971 54 353 8838"],
+    email: "dubai@impact-vision.com",
+    link: "https://maps.google.com/?q=Dubai",
+  },
   {
     city: "Beirut",
     country: "Lebanon",
     flag: "🇱🇧",
     phones: ["+961 3 532 505", "+961 76 869669"],
+    email: "beirut@impact-vision.com",
+    link: "https://maps.google.com/?q=Beirut",
   },
   {
     city: "Kuwait",
     country: "Kuwait",
     flag: "🇰🇼",
     phones: ["Contact via form"],
+    email: "kuwait@impact-vision.com",
+    link: "https://maps.google.com/?q=Kuwait",
   },
-  { city: "Qatar", country: "Qatar", flag: "🇶🇦", phones: ["Contact via form"] },
+  {
+    city: "Qatar",
+    country: "Qatar",
+    flag: "🇶🇦",
+    phones: ["Contact via form"],
+    email: "qatar@impact-vision.com",
+    link: "https://maps.google.com/?q=Qatar",
+  },
 ];
 
 export const CLIENTS = [

@@ -30,9 +30,9 @@ function HomePage({ loaded }) {
       {loaded && (
         <Suspense fallback={<LoadingSpinner />}>
           <Stats />
-          <Services />
-          <Locations />
           <Gallery />
+          <Locations />
+          <Services />
           <Safety />
           <Clients />
           <Contact />

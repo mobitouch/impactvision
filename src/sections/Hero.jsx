@@ -1,6 +1,7 @@
 import { Suspense, lazy, useState, useEffect } from "react";
 import { MoveRight } from "lucide-react";
-import { m } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import EditorialCarousel from "../components/EditorialCarousel";
 
 const LightRays = lazy(() => import("../components/LightRays"));
@@ -19,6 +20,33 @@ const item = {
 
 export default function Hero({ loaded }) {
   const [showRays, setShowRays] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
+
+  const contentMap = [
+    {
+      title: "LED SCREENS",
+      desc: "High-resolution modular LED panels that enhance stages, exhibitions, and outdoor arenas with striking visual impact.",
+      tag: "led",
+    },
+    {
+      title: "LIGHTING",
+      desc: "From mood-setting ambiance to high-energy concert shows, our lighting design team blends creativity and precision.",
+      tag: "lighting",
+    },
+    {
+      title: "STAGE",
+      desc: "We conceptualize and deliver stages that reflect your vision, ensuring aesthetics and functionality go hand in hand.",
+      tag: "stage",
+    },
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % contentMap.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Hard-defer WebGL context compilation until after Lighthouse LCP paints
   useEffect(() => {
@@ -80,30 +108,33 @@ export default function Hero({ loaded }) {
             className="font-mono text-[11px] tracking-[0.25em] text-accent mb-7 uppercase flex items-center gap-3"
           >
             <span className="w-8 h-[1px] bg-accent/50"></span>
-            Audiovisual Excellence
+            WHAT WE OFFER
             <span className="w-8 h-[1px] bg-accent/50"></span>
           </m.div>
 
-          {/* Headline */}
-          <m.h1
+          {/* Switching Content */}
+          <m.div
             variants={item}
-            className="font-serif text-[4.5rem] leading-[0.85] sm:text-7xl md:text-8xl lg:text-[110px] xl:text-[130px] text-white text-center lg:text-left sm:leading-[0.9] tracking-[-0.04em] mb-6 sm:mb-8"
+            className="relative w-full h-[200px] sm:h-[220px] lg:h-[240px] mb-4 sm:mb-6"
           >
-            Impact
-            <br />
-            <span className="text-accent italic relative inline-block">
-              Vision
-            </span>
-          </m.h1>
-
-          {/* Subtitle */}
-          <m.p
-            variants={item}
-            className="font-sans text-[15px] sm:text-lg md:text-[22px] text-white/80 max-w-[600px] lg:max-w-[480px] text-center lg:text-left leading-[1.6] mb-10 sm:mb-12 px-4 sm:px-0"
-          >
-            Crafting unforgettable technical productions and immersive stages
-            across the MENA region.
-          </m.p>
+            <AnimatePresence mode="wait">
+              <m.div
+                key={currentIndex}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="absolute inset-0 flex flex-col items-center lg:items-start"
+              >
+                <h1 className="font-serif text-[4rem] sm:text-6xl md:text-7xl lg:text-[75px] xl:text-[90px] text-white text-center lg:text-left leading-[1.1] tracking-[-0.04em] mb-4 sm:mb-6 whitespace-nowrap">
+                  {contentMap[currentIndex].title}
+                </h1>
+                <p className="font-sans text-[15px] sm:text-lg md:text-[22px] text-white/80 max-w-[600px] lg:max-w-[480px] text-center lg:text-left leading-[1.6] px-4 sm:px-0">
+                  {contentMap[currentIndex].desc}
+                </p>
+              </m.div>
+            </AnimatePresence>
+          </m.div>
 
           {/* CTAs */}
           <m.div
@@ -111,16 +142,16 @@ export default function Hero({ loaded }) {
             className="flex flex-col sm:flex-row gap-4 sm:gap-5 items-center lg:items-start pointer-events-auto w-full sm:w-auto px-6 sm:px-0"
           >
             <button
-              onClick={() =>
-                document
-                  .getElementById("services")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
+              onClick={() => {
+                navigate(`/gallery?tag=${contentMap[currentIndex].tag}`);
+                // if we are already on home page, and we just navigated to gallery, 
+                // the app handles it.
+              }}
               data-cursor="EXPLORE"
-              aria-label="Explore our production services"
+              aria-label={`Explore ${contentMap[currentIndex].title}`}
               className="group flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto bg-accent text-navy py-3 px-6 sm:py-4 sm:px-8 rounded-full font-sans text-sm sm:text-[15px] font-bold tracking-[0.02em] shadow-[0_10px_30px_rgba(212,224,237,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(212,224,237,0.4)]"
             >
-              Explore Production
+              Explore {contentMap[currentIndex].title}
               <MoveRight
                 size={16}
                 aria-hidden="true"
