@@ -13,7 +13,7 @@ export default function Services() {
           className="mb-[72px]"
         >
           <div className="font-mono text-[11px] text-navy/70 tracking-[0.2em] mb-4">
-            02 — SERVICES
+            03 — SERVICES
           </div>
           <h2 className="font-serif text-[clamp(36px,5vw,64px)] text-navy leading-[1.05] tracking-[-0.02em] max-w-[560px]">
             From concept to <em className="italic">execution</em>

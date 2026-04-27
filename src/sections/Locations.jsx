@@ -46,7 +46,7 @@ export default function Locations() {
           className="mb-[72px]"
         >
           <div className="font-mono text-[11px] text-accent tracking-[0.2em] mb-4">
-            03 — LOCATIONS
+            02 — LOCATIONS
           </div>
           <h2 className="font-serif text-[clamp(36px,5vw,64px)] text-white leading-[1.05] tracking-[-0.02em]">
             Where we <em className="text-accent not-italic">operate</em>

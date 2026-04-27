@@ -76,7 +76,7 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
         >
           <div className="font-mono text-[11px] text-accent tracking-[0.2em] mb-4">
-            07 — CONTACT
+            06 — CONTACT
           </div>
           <h2 className="font-serif text-[clamp(40px,6vw,72px)] leading-[1.05] tracking-[-0.02em] mb-8">
             Ready to make an <em className="italic text-accent">Impact?</em>

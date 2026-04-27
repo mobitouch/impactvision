@@ -16,7 +16,7 @@ export default function Gallery() {
           className="mb-14"
         >
           <div className="font-mono text-[11px] text-navy/70 tracking-[0.2em] mb-4">
-            04 — GALLERY
+            01 — GALLERY
           </div>
           <h2 className="font-serif text-[clamp(36px,5vw,64px)] text-navy leading-[1.05] tracking-[-0.02em]">
             Our <em className="italic">work</em>, up close

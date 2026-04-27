@@ -12,7 +12,7 @@ export default function Safety() {
           transition={{ duration: 0.8 }}
         >
           <div className="font-mono text-[11px] text-navy/70 tracking-[0.2em] mb-4">
-            05 — SAFETY
+            04 — SAFETY
           </div>
           <h2 className="font-serif text-[clamp(32px,4vw,52px)] text-navy leading-[1.1] tracking-[-0.02em] mb-6">
             Safety First,

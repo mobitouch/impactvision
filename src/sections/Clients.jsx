@@ -12,7 +12,7 @@ export default function Clients() {
         className="max-w-[1200px] mx-auto mb-32"
       >
         <div className="font-mono text-[11px] text-navy/70 tracking-[0.2em] mb-4">
-          06 — CLIENTS
+          05 — CLIENTS
         </div>
         <h2 className="font-serif text-[clamp(36px,5vw,64px)] text-navy leading-[1.05] tracking-[-0.02em]">
           Trusted by the <em className="italic">best</em>
