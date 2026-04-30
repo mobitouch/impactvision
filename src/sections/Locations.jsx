@@ -64,7 +64,13 @@ export default function Locations() {
               onClick={() => setSelectedLoc(loc)}
               className="p-[32px_28px] border border-accent/20 rounded-[10px] bg-white/5 transition-all duration-300 hover:border-accent/60 hover:bg-accent/5 cursor-pointer"
             >
-              <div className="text-[28px] mb-3">{loc.flag}</div>
+              <div className="mb-4">
+                <img 
+                  src={loc.flag} 
+                  alt={`${loc.country} flag`} 
+                  className="h-6 w-auto object-contain rounded-sm"
+                />
+              </div>
               <div className="font-serif text-[22px] text-white mb-1">
                 {loc.city}
               </div>
@@ -130,7 +136,13 @@ export default function Locations() {
                 ✕
               </button>
               
-              <div className="text-[40px] mb-4">{selectedLoc.flag}</div>
+              <div className="mb-6">
+                <img 
+                  src={selectedLoc.flag} 
+                  alt={`${selectedLoc.country} flag`} 
+                  className="h-10 w-auto object-contain rounded-md shadow-lg shadow-black/20"
+                />
+              </div>
               <h3 className="font-serif text-[28px] text-white mb-1">
                 {selectedLoc.city}
               </h3>
