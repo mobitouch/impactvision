@@ -140,7 +140,7 @@ export default function Locations() {
                 <img 
                   src={selectedLoc.flag} 
                   alt={`${selectedLoc.country} flag`} 
-                  className="h-10 w-auto object-contain rounded-md shadow-lg shadow-black/20"
+                  className="h-10 w-auto object-contain rounded-md"
                 />
               </div>
               <h3 className="font-serif text-[28px] text-white mb-1">
