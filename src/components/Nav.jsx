@@ -95,7 +95,7 @@ export default function Nav() {
               alt="Impact Vision Logo"
               width={180}
               height={65}
-              fetchpriority="high"
+              fetchPriority="high"
               decoding="sync"
               className={clsx(
                 "h-[50px] md:h-[65px] w-auto object-contain transition-all duration-300",

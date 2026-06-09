@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Search } from "lucide-react";
 import { clsx } from "clsx";
 
@@ -10,6 +10,7 @@ export default function GalleryCanvas({ items, fullPage = false }) {
         }
         return "";
     });
+
     const canvasRef = useRef(null);
     const offset = useRef({ x: 0, y: 0 });
     const targetOffset = useRef({ x: 0, y: 0 });
@@ -18,7 +19,9 @@ export default function GalleryCanvas({ items, fullPage = false }) {
     const startOffset = useRef({ x: 0, y: 0 });
     const velRef = useRef({ x: 0, y: 0 });
     const lastPos = useRef({ x: 0, y: 0 });
-    const [, forceRender] = useState(0);
+
+    // Caches the list of active tile DOM elements and layout coordinates
+    const activeTiles = useRef([]);
 
     const filtered = search.trim()
         ? items.filter(
@@ -27,38 +30,6 @@ export default function GalleryCanvas({ items, fullPage = false }) {
                 i.label.toLowerCase().includes(search.toLowerCase()),
         )
         : items;
-
-    // Smooth drag loop
-    useEffect(() => {
-        let animationId;
-        const tick = () => {
-            if (!isDragging.current) {
-                // Apply inertia
-                velRef.current.x *= 0.94;
-                velRef.current.y *= 0.94;
-                targetOffset.current.x += velRef.current.x;
-                targetOffset.current.y += velRef.current.y;
-            }
-
-            // Lerp physical offset to target offset
-            offset.current.x += (targetOffset.current.x - offset.current.x) * 0.15;
-            offset.current.y += (targetOffset.current.y - offset.current.y) * 0.15;
-
-            // Trigger re-render to run the dynamic positioning mathematically
-            const moving =
-                Math.abs(targetOffset.current.x - offset.current.x) > 0.05 ||
-                Math.abs(targetOffset.current.y - offset.current.y) > 0.05 ||
-                Math.abs(velRef.current.x) > 0.05 ||
-                Math.abs(velRef.current.y) > 0.05;
-
-            if (moving || isDragging.current) {
-                forceRender((n) => n + 1);
-            }
-            animationId = requestAnimationFrame(tick);
-        };
-        animationId = requestAnimationFrame(tick);
-        return () => cancelAnimationFrame(animationId);
-    }, []);
 
     const COLS = fullPage ? 5 : 4;
     const CARD_W = fullPage ? 300 : 280;
@@ -88,34 +59,51 @@ export default function GalleryCanvas({ items, fullPage = false }) {
 
         colHeights[minCol] += height + GAP;
 
-        // Remember which column this item belongs to, so we can wrap Y based on its exact column height
         return { ...item, x, y, width: CARD_W, height, colIndex: minCol };
     });
 
     const blockWidth = COLS * (CARD_W + GAP);
+    const numCopies = fullPage ? 4 : 3; // 3x3 repeats for standard, 4x4 for fullPage to support ultra-wide screens
+    const totalWidth = numCopies * blockWidth;
 
+    // High performance direct DOM positioning function
+    const updateTilePositions = useCallback(() => {
+        const tiles = activeTiles.current;
+        if (!tiles || tiles.length === 0) return;
+
+        const currentX = offset.current.x;
+        const currentY = offset.current.y;
+
+        for (let i = 0; i < tiles.length; i++) {
+            const tile = tiles[i];
+            const totalHeight = numCopies * tile.colHeight;
+
+            const diffX = tile.baseX - (-currentX);
+            const diffY = tile.baseY - (-currentY);
+
+            // Wrap coordinates mathematically around total width & height
+            const wrappedDiffX = ((diffX + totalWidth / 2) % totalWidth + totalWidth) % totalWidth - totalWidth / 2;
+            const wrappedDiffY = ((diffY + totalHeight / 2) % totalHeight + totalHeight) % totalHeight - totalHeight / 2;
+
+            // Apply hardware-accelerated 3D translation directly to the DOM element
+            tile.el.style.transform = `translate3d(${wrappedDiffX}px, ${wrappedDiffY}px, 0)`;
+        }
+    }, [totalWidth, numCopies]);
+
+    // Handle initial drag start on mouse down
     const onMouseDown = (e) => {
         if (e.target.closest("button") || e.target.closest("input")) return;
         isDragging.current = true;
+        if (canvasRef.current) {
+            canvasRef.current.style.cursor = "grabbing";
+        }
         startPos.current = { x: e.clientX, y: e.clientY };
         lastPos.current = { x: e.clientX, y: e.clientY };
         startOffset.current = { ...targetOffset.current };
         velRef.current = { x: 0, y: 0 };
     };
 
-    const onMouseMove = (e) => {
-        if (!isDragging.current) return;
-        velRef.current = {
-            x: e.clientX - lastPos.current.x,
-            y: e.clientY - lastPos.current.y,
-        };
-        lastPos.current = { x: e.clientX, y: e.clientY };
-        targetOffset.current = {
-            x: startOffset.current.x + (e.clientX - startPos.current.x),
-            y: startOffset.current.y + (e.clientY - startPos.current.y),
-        };
-    };
-
+    // Handle initial drag start on touch start
     const onTouchStart = (e) => {
         if (e.target.closest("button") || e.target.closest("input")) return;
         isDragging.current = true;
@@ -125,26 +113,111 @@ export default function GalleryCanvas({ items, fullPage = false }) {
         velRef.current = { x: 0, y: 0 };
     };
 
-    const onTouchMove = (e) => {
-        if (!isDragging.current) return;
-        const clientX = e.touches[0].clientX;
-        const clientY = e.touches[0].clientY;
-        velRef.current = {
-            x: clientX - lastPos.current.x,
-            y: clientY - lastPos.current.y,
+    // Bind dragging mouse/touch event move & end listeners to window for robust tracking
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            if (!isDragging.current) return;
+            velRef.current = {
+                x: e.clientX - lastPos.current.x,
+                y: e.clientY - lastPos.current.y,
+            };
+            lastPos.current = { x: e.clientX, y: e.clientY };
+            targetOffset.current = {
+                x: startOffset.current.x + (e.clientX - startPos.current.x),
+                y: startOffset.current.y + (e.clientY - startPos.current.y),
+            };
         };
-        lastPos.current = { x: clientX, y: clientY };
-        targetOffset.current = {
-            x: startOffset.current.x + (clientX - startPos.current.x),
-            y: startOffset.current.y + (clientY - startPos.current.y),
-        };
-    };
 
-    const onMouseUp = () => {
-        isDragging.current = false;
-    };
-    
-    // Render an infinite expanding grid 5x5 by dynamically wrapping items mathematically
+        const handleMouseUp = () => {
+            if (isDragging.current) {
+                isDragging.current = false;
+                if (canvasRef.current) {
+                    canvasRef.current.style.cursor = "grab";
+                }
+            }
+        };
+
+        const handleTouchMove = (e) => {
+            if (!isDragging.current) return;
+            const clientX = e.touches[0].clientX;
+            const clientY = e.touches[0].clientY;
+            velRef.current = {
+                x: clientX - lastPos.current.x,
+                y: clientY - lastPos.current.y,
+            };
+            lastPos.current = { x: clientX, y: clientY };
+            targetOffset.current = {
+                x: startOffset.current.x + (clientX - startPos.current.x),
+                y: startOffset.current.y + (clientY - startPos.current.y),
+            };
+        };
+
+        window.addEventListener("mousemove", handleMouseMove, { passive: true });
+        window.addEventListener("mouseup", handleMouseUp, { passive: true });
+        window.addEventListener("touchmove", handleTouchMove, { passive: true });
+        window.addEventListener("touchend", handleMouseUp, { passive: true });
+
+        return () => {
+            window.removeEventListener("mousemove", handleMouseMove);
+            window.removeEventListener("mouseup", handleMouseUp);
+            window.removeEventListener("touchmove", handleTouchMove);
+            window.removeEventListener("touchend", handleMouseUp);
+        };
+    }, []);
+
+    // Cache DOM tile references and position metadata whenever display items or page mode changes
+    useEffect(() => {
+        if (!canvasRef.current) return;
+        const elements = canvasRef.current.querySelectorAll("[data-gallery-tile]");
+        const list = [];
+        elements.forEach((el) => {
+            list.push({
+                el,
+                baseX: parseFloat(el.getAttribute("data-base-x")),
+                baseY: parseFloat(el.getAttribute("data-base-y")),
+                colHeight: parseFloat(el.getAttribute("data-col-height")),
+            });
+        });
+        activeTiles.current = list;
+
+        // Position items correctly at current offsets immediately
+        updateTilePositions();
+    }, [displayItems, fullPage, updateTilePositions]);
+
+    // High performance animation loop using requestAnimationFrame
+    useEffect(() => {
+        let animationId;
+        const tick = () => {
+            if (!isDragging.current) {
+                // Apply inertia decay
+                velRef.current.x *= 0.94;
+                velRef.current.y *= 0.94;
+                targetOffset.current.x += velRef.current.x;
+                targetOffset.current.y += velRef.current.y;
+            }
+
+            // Lerp physical offset to target offset (creates a smooth spring transition)
+            offset.current.x += (targetOffset.current.x - offset.current.x) * 0.15;
+            offset.current.y += (targetOffset.current.y - offset.current.y) * 0.15;
+
+            // Only update CSS transforms if moving or dragging to conserve CPU cycles
+            const moving =
+                Math.abs(targetOffset.current.x - offset.current.x) > 0.01 ||
+                Math.abs(targetOffset.current.y - offset.current.y) > 0.01 ||
+                Math.abs(velRef.current.x) > 0.01 ||
+                Math.abs(velRef.current.y) > 0.01;
+
+            if (moving || isDragging.current) {
+                updateTilePositions();
+            }
+
+            animationId = requestAnimationFrame(tick);
+        };
+        animationId = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(animationId);
+    }, [updateTilePositions]);
+
+    // Render static grid template where positions are updated dynamically in JS
     const renderTiles = () => {
         if (layout.length === 0) {
             return (
@@ -155,85 +228,78 @@ export default function GalleryCanvas({ items, fullPage = false }) {
         }
 
         const elements = [];
-        
-        // We use 5 copies in each dimension to cleanly cover the entire viewport 
-        // regardless of screen size without popping effect.
-        const numCopies = 5;
-        const totalWidth = numCopies * blockWidth;
-        
+
         for (let tx = 0; tx < numCopies; tx++) {
             for (let ty = 0; ty < numCopies; ty++) {
-                
                 layout.forEach((item) => {
                     const colHeight = colHeights[item.colIndex];
                     const totalHeight = numCopies * colHeight;
-                    
-                    // Base nominal positions
+
+                    // Base nominal positions for this grid copy
                     const baseX = item.x + tx * blockWidth;
                     const baseY = item.y + ty * colHeight;
-                    
-                    // Calculate relative view distances
-                    const diffX = baseX - (-offset.current.x);
-                    const diffY = baseY - (-offset.current.y);
-                    
-                    // The core trick: Modulo wrapping forces the element to teleport to the 
-                    // other face of the imaginary 3D cylinder when it crosses the boundary, 
-                    // which is safely outside of the viewport area.
+
+                    // Calculate initial wrapped position for offset = 0
+                    const diffX = baseX;
+                    const diffY = baseY;
                     const wrappedDiffX = ((diffX + totalWidth / 2) % totalWidth + totalWidth) % totalWidth - totalWidth / 2;
                     const wrappedDiffY = ((diffY + totalHeight / 2) % totalHeight + totalHeight) % totalHeight - totalHeight / 2;
-                    
-                    // Final position places it predictably near the camera view origin (-offset)
-                    const finalX = -offset.current.x + wrappedDiffX - totalWidth / 2;
-                    const finalY = -offset.current.y + wrappedDiffY - totalHeight / 2;
-                    
-                    // Note: We shift by -totalWidth/2 to center the grid properly
-                    // Actually, if we just use wrappedDiff directly against -offset.x, 
-                    // that perfectly tracks, but we might want it slightly centered with layout origin.
-                    
+
                     elements.push(
                         <div
                             key={`tile-${tx}-${ty}-${item.uniqueId}`}
-                            className="absolute rounded-[12px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_16px_40px_rgba(212,224,237,0.15)] group bg-navy"
+                            data-gallery-tile
+                            data-base-x={baseX}
+                            data-base-y={baseY}
+                            data-col-height={colHeight}
+                            className="absolute pointer-events-auto"
                             style={{
-                                left: -offset.current.x + wrappedDiffX,
-                                top: -offset.current.y + wrappedDiffY,
                                 width: item.width,
                                 height: item.height,
-                                background: item.image ? 'transparent' : item.color,
+                                transform: `translate3d(${wrappedDiffX}px, ${wrappedDiffY}px, 0)`,
+                                willChange: "transform",
                             }}
                         >
-                            {item.image ? (
-                                <img
-                                    src={item.image}
-                                    alt={item.label}
-                                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-                                    loading="lazy"
-                                />
-                            ) : (
-                                <div
-                                    className="absolute inset-0"
-                                    style={{
-                                        background: `linear-gradient(135deg, ${item.color} 0%, rgba(212,224,237,0.1) 100%)`,
-                                    }}
-                                />
-                            )}
+                            {/* Inner Container: Handles transitions, shadow, background, scale on hover */}
+                            <div
+                                className="w-full h-full rounded-[12px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-[transform,box-shadow] duration-300 hover:scale-[1.02] hover:shadow-[0_16px_40px_rgba(212,224,237,0.15)] group bg-navy relative"
+                                style={{
+                                    background: item.image ? "transparent" : item.color,
+                                }}
+                            >
+                                {item.image ? (
+                                    <img
+                                        src={item.image}
+                                        alt={item.label}
+                                        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                                        loading="lazy"
+                                    />
+                                ) : (
+                                    <div
+                                        className="absolute inset-0"
+                                        style={{
+                                            background: `linear-gradient(135deg, ${item.color} 0%, rgba(212,224,237,0.1) 100%)`,
+                                        }}
+                                    />
+                                )}
 
-                            {/* Hover Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                                {/* Hover Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-                            <div className="absolute bottom-4 left-4 right-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                <div className="text-white text-[15px] font-serif mb-2 leading-tight">
-                                    {item.label}
-                                </div>
-                                <div className="flex gap-2 flex-wrap">
-                                    {item.tags.map((t) => (
-                                        <span
-                                            key={t}
-                                            className="px-2 py-0.5 rounded-[4px] bg-[#d4e0ed]/10 text-[#d4e0ed] text-[10px] font-mono uppercase tracking-wider"
-                                        >
-                                            {t}
-                                        </span>
-                                    ))}
+                                <div className="absolute bottom-4 left-4 right-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div className="text-white text-[15px] font-serif mb-2 leading-tight">
+                                        {item.label}
+                                    </div>
+                                    <div className="flex gap-2 flex-wrap">
+                                        {item.tags.map((t) => (
+                                            <span
+                                                key={t}
+                                                className="px-2 py-0.5 rounded-[4px] bg-[#d4e0ed]/10 text-[#d4e0ed] text-[10px] font-mono uppercase tracking-wider"
+                                            >
+                                                {t}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -290,27 +356,15 @@ export default function GalleryCanvas({ items, fullPage = false }) {
             <div
                 ref={canvasRef}
                 onMouseDown={onMouseDown}
-                onMouseMove={onMouseMove}
-                onMouseUp={onMouseUp}
-                onMouseLeave={onMouseUp}
                 onTouchStart={onTouchStart}
-                onTouchMove={onTouchMove}
-                onTouchEnd={onMouseUp}
                 className={clsx(
-                    "w-full overflow-hidden relative rounded-xl bg-white border border-[#e8eef8] select-none touch-none",
+                    "w-full overflow-hidden relative rounded-xl bg-white border border-[#e8eef8] select-none touch-none cursor-grab",
                     fullPage ? "h-[calc(100vh-200px)] min-h-[500px]" : "h-[600px]",
-                    isDragging.current ? "cursor-grabbing" : "cursor-grab",
                 )}
                 data-cursor="DRAG"
             >
-                <div
-                    className="absolute w-full h-full"
-                    style={{
-                        transform: `translate(${offset.current.x}px, ${offset.current.y}px)`,
-                    }}
-                >
+                <div className="absolute w-full h-full">
                     <div className="absolute left-[50%] top-[50%]">
-                        {/* We removed translate-x/y center for cleaner math coordinates origin */}
                         {renderTiles()}
                     </div>
                 </div>
@@ -321,4 +375,3 @@ export default function GalleryCanvas({ items, fullPage = false }) {
         </div>
     );
 }
-

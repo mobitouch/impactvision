@@ -67,7 +67,7 @@ export const LOCATIONS = [
     country: "KSA",
     flag: "/flags/KSA.svg",
     phones: ["+966 53 311 0614", "+966 55 435 5278"],
-    email: "riyadh@impact-vision.com",
+    email: "sales@impactvision.com",
     link: "https://maps.google.com/?q=Riyadh",
   },
   {
@@ -75,7 +75,7 @@ export const LOCATIONS = [
     country: "UAE",
     flag: "/flags/UAE.svg",
     phones: ["+971 54 353 8838"],
-    email: "dubai@impact-vision.com",
+    email: "sales@impactvision.com",
     link: "https://maps.google.com/?q=Dubai",
   },
   {
@@ -83,7 +83,7 @@ export const LOCATIONS = [
     country: "Lebanon",
     flag: "/flags/Lebanon.svg",
     phones: ["+961 3 532 505", "+961 76 869669"],
-    email: "beirut@impact-vision.com",
+    email: "sales@impactvision.com",
     link: "https://maps.google.com/?q=Beirut",
   },
   {
@@ -91,15 +91,15 @@ export const LOCATIONS = [
     country: "Kuwait",
     flag: "/flags/Kuwait.svg",
     phones: ["Contact via form"],
-    email: "kuwait@impact-vision.com",
+    email: "sales@impactvision.com",
     link: "https://maps.google.com/?q=Kuwait",
   },
   {
     city: "Qatar",
     country: "Qatar",
     flag: "/flags/Qatar.svg",
-    phones: ["Contact via form"],
-    email: "qatar@impact-vision.com",
+    phones: ["+974 5016 4599"],
+    email: "sales@impactvision.com",
     link: "https://maps.google.com/?q=Qatar",
   },
 ];

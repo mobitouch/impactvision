@@ -18,28 +18,28 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
 };
 
+const contentMap = [
+  {
+    title: "LED SCREENS",
+    desc: "High-resolution modular LED panels that enhance stages, exhibitions, and outdoor arenas with striking visual impact.",
+    tag: "led",
+  },
+  {
+    title: "LIGHTING",
+    desc: "From mood-setting ambiance to high-energy concert shows, our lighting design team blends creativity and precision.",
+    tag: "lighting",
+  },
+  {
+    title: "STAGE",
+    desc: "We conceptualize and deliver stages that reflect your vision, ensuring aesthetics and functionality go hand in hand.",
+    tag: "stage",
+  },
+];
+
 export default function Hero({ loaded }) {
   const [showRays, setShowRays] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
-
-  const contentMap = [
-    {
-      title: "LED SCREENS",
-      desc: "High-resolution modular LED panels that enhance stages, exhibitions, and outdoor arenas with striking visual impact.",
-      tag: "led",
-    },
-    {
-      title: "LIGHTING",
-      desc: "From mood-setting ambiance to high-energy concert shows, our lighting design team blends creativity and precision.",
-      tag: "lighting",
-    },
-    {
-      title: "STAGE",
-      desc: "We conceptualize and deliver stages that reflect your vision, ensuring aesthetics and functionality go hand in hand.",
-      tag: "stage",
-    },
-  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
