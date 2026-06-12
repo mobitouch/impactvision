@@ -13,9 +13,9 @@ export default {
         navyLight: '#302d4d',
       },
       fontFamily: {
-        sans: ['"DM Sans"', 'sans-serif'],
-        serif: ['"DM Serif Display"', 'serif'],
-        mono: ['monospace'],
+        sans: ['"Akzidenz Grotesk"', 'sans-serif'],
+        serif: ['"Akzidenz Grotesk"', 'sans-serif'],
+        mono: ['"Akzidenz Grotesk"', 'monospace'],
       },
       animation: {
         'fade-up': 'fadeUp 0.8s ease both',

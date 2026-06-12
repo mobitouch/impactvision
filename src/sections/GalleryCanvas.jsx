@@ -318,7 +318,7 @@ export default function GalleryCanvas({ items, fullPage = false }) {
                     <input
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Search by tag: concert, led, rigging..."
+                        placeholder="Search by tag: concert, screen, rigging..."
                         className="w-full py-[14px] pr-5 pl-12 rounded-lg border-[1.5px] border-[#e0e8f8] bg-[#f7f9ff] font-sans text-[14px] text-navy outline-none box-border transition-colors duration-200 focus:border-accent"
                     />
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-accent w-4 h-4" />
@@ -329,13 +329,11 @@ export default function GalleryCanvas({ items, fullPage = false }) {
             <div className="flex gap-2 justify-center mb-8 flex-wrap">
                 {[
                     "concert",
-                    "led",
+                    "screen",
                     "lighting",
                     "rigging",
                     "stage",
                     "laser",
-                    "festival",
-                    "ceremony",
                 ].map((tag) => (
                     <button
                         key={tag}

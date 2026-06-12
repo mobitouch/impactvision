@@ -70,7 +70,6 @@ export default function Nav() {
     ["services", "Services"],
     ["locations", "Locations"],
     ["gallery", "Gallery"],
-    ["clients", "Clients"],
   ];
 
   return (

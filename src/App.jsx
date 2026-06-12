@@ -34,7 +34,7 @@ function HomePage({ loaded }) {
           <Locations />
           <Services />
           <Safety />
-          <Clients />
+          {/* <Clients /> */}
           <Contact />
         </Suspense>
       )}

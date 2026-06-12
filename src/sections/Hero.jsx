@@ -22,7 +22,7 @@ const contentMap = [
   {
     title: "LED SCREENS",
     desc: "High-resolution modular LED panels that enhance stages, exhibitions, and outdoor arenas with striking visual impact.",
-    tag: "led",
+    tag: "screen",
   },
   {
     title: "LIGHTING",

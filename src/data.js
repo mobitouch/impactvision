@@ -130,7 +130,7 @@ export const GALLERY_ITEMS = [
   {
     id: 2,
     image: "/gallery/1000060670_eb8900016d3bfc5f3dd6459a47659434-1_1_2024, 1_51_02 PM_20250827_135707_0000.webp",
-    tags: ["led", "ceremony"],
+    tags: ["screen", "ceremony"],
     label: "Billboard Arabia Awards",
     color: "#0d1f3c",
   },
@@ -151,7 +151,7 @@ export const GALLERY_ITEMS = [
   {
     id: 5,
     image: "/gallery/1000061253_c511a6ca43acfbf063806792a1ddd028-1_6_2024, 2_12_09 PM_20250827_135644_0000.webp",
-    tags: ["stage", "led"],
+    tags: ["stage", "screen"],
     label: "Custom Stage — LED Wall",
     color: "#0a1a30",
   },
@@ -179,7 +179,7 @@ export const GALLERY_ITEMS = [
   {
     id: 9,
     image: "/gallery/1000065556_d2a47fb4b4840c70d69b3a71d2ef5d26-2_13_2024, 1_06_07 PM_20250827_135202_0000.webp",
-    tags: ["led", "stage"],
+    tags: ["screen", "stage"],
     label: "Dubai LED Installation",
     color: "#0c1c35",
   },
@@ -207,7 +207,7 @@ export const GALLERY_ITEMS = [
   {
     id: 13,
     image: "/gallery/IMG-20240422-WA0016_20250827_135351_0000.webp",
-    tags: ["lighting", "led", "concert"],
+    tags: ["lighting", "screen", "concert"],
     label: "Main Stage Light Show",
     color: "#0d1f3c",
   },
@@ -221,7 +221,7 @@ export const GALLERY_ITEMS = [
   {
     id: 15,
     image: "/gallery/WhatsApp Image 2023-10-07 at 11.35.08_20250827_135920_0000.webp",
-    tags: ["ceremony", "lighting", "led"],
+    tags: ["ceremony", "lighting", "screen"],
     label: "Corporate Ceremony Setup",
     color: "#0f2340",
   },
@@ -235,7 +235,7 @@ export const GALLERY_ITEMS = [
   {
     id: 17,
     image: "/gallery/mini_magick20240303-46685-b34rqs_20250827_135747_0000.webp",
-    tags: ["led", "concert"],
+    tags: ["screen", "concert"],
     label: "Immersive Concert LED",
     color: "#061018",
   },
@@ -256,7 +256,7 @@ export const GALLERY_ITEMS = [
   {
     id: 20,
     image: "/gallery/mini_magick20240414-21071-4p7o5o_20250827_135017_0000.webp",
-    tags: ["concert", "rigging", "led"],
+    tags: ["concert", "rigging", "screen"],
     label: "Arena Truss & Lighting",
     color: "#0c1c35",
   },
